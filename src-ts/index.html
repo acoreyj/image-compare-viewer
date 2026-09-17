@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Image Compare Viewer — TypeScript Demo</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #111;
+      color: #eee;
+      padding: 2rem;
+    }
+    h1 { text-align: center; font-weight: 300; margin-bottom: 2rem; }
+    h2 {
+      font-weight: 400;
+      font-size: 1.25rem;
+      margin: 2rem 0 1rem;
+      color: #aaa;
+      text-align: center;
+    }
+    .demo-section {
+      max-width: 900px;
+      margin: 0 auto 3rem;
+    }
+    .image-compare {
+      max-width: 100%;
+    }
+  </style>
+  <script type="importmap">
+    {
+      "imports": {
+        "./image-compare.js": "./image-compare.js"
+      }
+    }
+  </script>
+</head>
+<body>
+
+<h1>Image Compare Viewer</h1>
+
+<div class="demo-section">
+  <h2>Default — Horizontal Slider</h2>
+  <div id="demo-default" class="image-compare">
+    <img src="../public/before-0.jpg" alt="Before" />
+    <img src="../public/after-0.jpg" alt="After" />
+  </div>
+</div>
+
+<div class="demo-section">
+  <h2>Vertical Mode + Circle Handle</h2>
+  <div id="demo-vertical" class="image-compare">
+    <img src="../public/before-0.jpg" alt="Before" />
+    <img src="../public/after-0.jpg" alt="After" />
+  </div>
+</div>
+
+<div class="demo-section">
+  <h2>Fluid Mode + Labels</h2>
+  <div id="demo-fluid" class="image-compare">
+    <img src="../public/before-0.jpg" alt="Before" />
+    <img src="../public/after-0.jpg" alt="After" />
+  </div>
+</div>
+
+<div class="demo-section">
+  <h2>Hover Start + Circle + Labels (on hover)</h2>
+  <div id="demo-hover" class="image-compare">
+    <img src="../public/before-0.jpg" alt="Before" />
+    <img src="../public/after-0.jpg" alt="After" />
+  </div>
+</div>
+
+<script type="module">
+  import { ImageCompare } from "./image-compare.js";
+
+  // Default horizontal slider
+  new ImageCompare(document.getElementById("demo-default"), {
+    startingPoint: 50,
+  }).mount();
+
+  // Vertical mode with circle
+  new ImageCompare(document.getElementById("demo-vertical"), {
+    verticalMode: true,
+    addCircle: true,
+    startingPoint: 50,
+  }).mount();
+
+  // Fluid mode with labels
+  new ImageCompare(document.getElementById("demo-fluid"), {
+    fluidMode: true,
+    showLabels: true,
+    labelOptions: { before: "Before", after: "After" },
+    startingPoint: 50,
+  }).mount();
+
+  // Hover start with circle & hover labels
+  new ImageCompare(document.getElementById("demo-hover"), {
+    hoverStart: true,
+    addCircle: true,
+    showLabels: true,
+    labelOptions: { before: "Original", after: "Edited", onHover: true },
+    startingPoint: 50,
+  }).mount();
+</script>
+
+</body>
+</html>

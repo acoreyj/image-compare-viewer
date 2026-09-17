@@ -410,6 +410,37 @@ class ImageCompare {
       `;
       this.el.appendChild(fluidWrapper);
     }
+    if (childrenImages[0] && childrenImages[1]) {
+      this._setContainerToFitBoth(childrenImages[0], childrenImages[1]);
+    }
+  }
+
+  _setContainerToFitBoth(imgA, imgB) {
+    const setSize = () => {
+      if (!imgA.naturalWidth || !imgB.naturalWidth) return;
+
+      const maxWidth = Math.max(imgA.naturalWidth, imgB.naturalWidth);
+      const maxHeight = Math.max(imgA.naturalHeight, imgB.naturalHeight);
+
+      // Size the container to accommodate the larger image
+      this.el.style.maxWidth = `${maxWidth}px`;
+      this.el.style.aspectRatio = `${maxWidth} / ${maxHeight}`;
+
+      // Make image A fill the container (it was previously in flow)
+      imgA.style.position = 'absolute';
+      imgA.style.width = '100%';
+      imgA.style.height = '100%';
+      imgA.style.objectFit = 'cover';
+      imgA.style.top = '0';
+      imgA.style.left = '0';
+    };
+
+    if (imgA.complete && imgB.complete) {
+      setSize();
+    } else {
+      imgA.addEventListener('load', setSize);
+      imgB.addEventListener('load', setSize);
+    }
   }
 }
 
